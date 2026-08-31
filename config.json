@@ -5,113 +5,533 @@
       "name": "Nike Tech Fleece",
       "keyword": "Nike Tech Fleece",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Tech Pack",
       "keyword": "Nike Tech Pack",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike AeroSwift",
       "keyword": "Nike AeroSwift",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Running Division",
       "keyword": "Nike Running Division",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Run Division",
       "keyword": "Nike Run Division",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Phenom Elite",
       "keyword": "Nike Phenom Elite",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Fast Hybrid",
       "keyword": "Nike Fast Hybrid",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Dri-FIT ADV",
       "keyword": "Nike Dri-FIT ADV",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Storm-FIT ADV",
       "keyword": "Nike Storm-FIT ADV",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Trail ADV",
       "keyword": "Nike Trail ADV",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Tokyo",
       "keyword": "Nike Tokyo",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Berlin",
       "keyword": "Nike Berlin",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "Nike Japan",
       "keyword": "Nike Japan",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     },
     {
       "name": "UA ColdGear",
       "keyword": "UA ColdGear",
       "price_max": 35,
-      "exclude": ["XXL", "XXXL", "Leggings", "Tights", "Half Tights", "Compression Tights", "Running Tights", "Collant"],
-      "conditions": ["Neuf avec étiquette", "Neuf sans étiquette", "Très bon état"],
-      "sizes": ["S", "M", "L", "XL"]
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     }
   ]
 }
