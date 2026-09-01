@@ -532,6 +532,500 @@
         "L",
         "XL"
       ]
+    },
+    {
+      "name": "Nike Tech Aviator",
+      "keyword": "Nike Tech Aviator",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Tech Kangaroo",
+      "keyword": "Nike Tech Kangaroo",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Tracksuit",
+      "keyword": "Nike Running Tracksuit",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Tops",
+      "keyword": "Nike Running Tops",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Bottom",
+      "keyword": "Nike Running Bottom",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Trail Pants",
+      "keyword": "Nike Trail Pants",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Trail Jacket",
+      "keyword": "Nike Trail Jacket",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Trousers",
+      "keyword": "Nike Running Trousers",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Windbreaker",
+      "keyword": "Nike Running Windbreaker",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Therma-FIT",
+      "keyword": "Nike Therma-FIT",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Storm-FIT Run",
+      "keyword": "Nike Storm-FIT Run",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Storm-FIT Run Division",
+      "keyword": "Nike Storm-FIT Run Division",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "name": "Nike Running Windrunner",
+      "keyword": "Nike Running Windrunner",
+      "price_max": 35,
+      "exclude": [
+        "Bonnet",
+        "Casquette",
+        "Chaussettes",
+        "Collant",
+        "Compression Tights",
+        "Débardeur",
+        "Gants",
+        "Half Tights",
+        "Leggings",
+        "Maillot",
+        "Polo",
+        "Running Tights",
+        "Sac",
+        "Short",
+        "Shorts",
+        "T-shirt",
+        "Tee",
+        "Tights",
+        "XXL",
+        "XXXL"
+      ],
+      "conditions": [
+        "Neuf avec étiquette",
+        "Neuf sans étiquette",
+        "Très bon état"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
     }
   ]
 }
