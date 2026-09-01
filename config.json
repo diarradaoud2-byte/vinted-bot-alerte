@@ -848,53 +848,6 @@
       ]
     },
     {
-      "name": "Nike Running Trousers",
-      "keyword": "Nike Running Trousers",
-      "price_max": 35,
-      "exclude": [
-        "Bag",
-        "Beanie",
-        "Bonnet",
-        "Cap",
-        "Casquette",
-        "Chaussettes",
-        "Collant",
-        "Compression Tights",
-        "Débardeur",
-        "Gants",
-        "Gloves",
-        "Half Tights",
-        "Jersey",
-        "Leggings",
-        "Maillot",
-        "Polo",
-        "Running Tights",
-        "Sac",
-        "Short",
-        "Shorts",
-        "Sleeveless",
-        "Socks",
-        "T-shirt",
-        "Tank Top",
-        "Tee",
-        "Tights",
-        "Vest",
-        "XXL",
-        "XXXL"
-      ],
-      "conditions": [
-        "Neuf avec étiquette",
-        "Neuf sans étiquette",
-        "Très bon état"
-      ],
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ]
-    },
-    {
       "name": "Nike Running Windbreaker",
       "keyword": "Nike Running Windbreaker",
       "price_max": 35,
@@ -942,8 +895,8 @@
       ]
     },
     {
-      "name": "Nike Therma-FIT",
-      "keyword": "Nike Therma-FIT",
+      "name": "Nike Therma-FIT ADV",
+      "keyword": "Nike Therma-FIT ADV",
       "price_max": 35,
       "exclude": [
         "Bag",
