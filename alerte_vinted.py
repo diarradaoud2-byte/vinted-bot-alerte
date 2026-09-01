@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
 """
 Bot d'alerte Vinted.
 
@@ -44,6 +43,10 @@ STATUS_IDS = {
 
 ALLOWED_SIZES = {"XS", "S", "M", "L", "XL", "XXL", "XXXL"}
 
+# Score minimum pour qu'une annonce soit envoyée sur Discord — en dessous,
+# elle est ignorée silencieusement (comptée dans le résumé mais pas alertée).
+MIN_SCORE_TO_ALERT = 4
+
 
 def load_json(path, default):
     if not os.path.exists(path):
@@ -80,7 +83,7 @@ def search_url_to_params(search_url):
     return params
 
 
-def search_config_to_params(search):
+def search_config_to_params(search, global_catalog_ids=None):
     """Construit les paramètres de recherche directement à partir de champs
     simples dans config.json (keyword, price_max, price_min, conditions...),
     sans avoir besoin de coller une URL Vinted."""
@@ -100,20 +103,26 @@ def search_config_to_params(search):
         if status_ids:
             params["status_ids[]"] = status_ids
 
+    # Filtre par vraie catégorie Vinted (vestes/pulls/pantalons), pour
+    # éliminer les faux positifs sans dépendre uniquement des mots du titre.
+    catalog_ids = search.get("catalog_ids", global_catalog_ids)
+    if catalog_ids:
+        params["catalog[]"] = catalog_ids
+
     return params
 
 
-def get_search_params(search):
+def get_search_params(search, global_catalog_ids=None):
     """Renvoie les paramètres de requête pour une recherche, qu'elle soit
     définie via une URL Vinted complète ('url') ou via des champs simples
     ('keyword', 'price_max', 'price_min')."""
     if search.get("url"):
         return search_url_to_params(search["url"])
-    return search_config_to_params(search)
+    return search_config_to_params(search, global_catalog_ids)
 
 
-def fetch_items(session, search, base_url, api_endpoint):
-    params = get_search_params(search)
+def fetch_items(session, search, base_url, api_endpoint, global_catalog_ids=None):
+    params = get_search_params(search, global_catalog_ids)
     resp = session.get(api_endpoint, params=params, timeout=15)
     if resp.status_code == 401 or resp.status_code == 403:
         # La session a expiré / a été rejetée : on en recrée une et on réessaie une fois
@@ -126,11 +135,22 @@ def fetch_items(session, search, base_url, api_endpoint):
 
 RARE_KEYWORDS = ["ispa", "gyakusou", "sample", "prototype", "archive", "vintage", "rare", "collab"]
 
+# Lignes considérées comme plus recherchées / meilleure revente : bonus de
+# score plus élevé que les lignes basiques (Tech Fleece, Tech Pack) qui sont
+# très courantes et se revendent moins bien.
+HIGH_VALUE_LINES = [
+    "acg", "ispa", "gyakusou", "aeroswift", "phenom elite",
+    "running division", "run division", "trail", "storm-fit",
+    "windrunner", "tokyo", "berlin", "japan",
+]
+COMMON_LINES = ["tech fleece", "tech pack", "coldgear"]
 
-def compute_score(item, price_max):
+
+def compute_score(item, price_max, search_name=""):
     """Calcule un score de pertinence sur 5, basé sur le prix (plus c'est
-    en dessous du budget max, mieux c'est), l'état de l'article, et la
-    présence de mots signalant une pièce rare ou recherchée."""
+    en dessous du budget max, mieux c'est), l'état de l'article, la
+    présence de mots signalant une pièce rare, et si la ligne elle-même
+    est considérée comme plus recherchée (bonne revente) ou plus basique."""
     score = 2  # score de base
 
     price_obj = item.get("price", {})
@@ -156,7 +176,27 @@ def compute_score(item, price_max):
     if any(kw in title for kw in RARE_KEYWORDS):
         score += 1
 
-    return round(min(score, 5), 1)
+    search_name_lower = search_name.lower()
+    if any(line in search_name_lower for line in HIGH_VALUE_LINES):
+        score += 1
+    elif any(line in search_name_lower for line in COMMON_LINES):
+        score -= 0.5
+
+    return round(max(0, min(score, 5)), 1)
+
+
+def fetch_item_details(session, item_id, base_url, domain):
+    """Récupère les détails complets d'une annonce (dont l'état exact),
+    car cette info n'est pas toujours incluse dans les résultats de recherche."""
+    try:
+        url = f"https://www.vinted.{domain}/api/v2/items/{item_id}"
+        resp = session.get(url, timeout=10)
+        if resp.status_code >= 300:
+            return None
+        data = resp.json()
+        return data.get("item", {})
+    except Exception:
+        return None
 
 
 def send_discord_alert(item, search_name, base_url, score=None, is_deal=False):
@@ -169,6 +209,7 @@ def send_discord_alert(item, search_name, base_url, score=None, is_deal=False):
     price = f"{price_obj.get('amount', '?')} {price_obj.get('currency_code', '')}".strip()
     brand = item.get("brand_title", "")
     size = item.get("size_title", "")
+    condition = item.get("status", "")
     url = item.get("url", base_url)
     photo = (item.get("photo") or {}).get("url")
 
@@ -178,7 +219,7 @@ def send_discord_alert(item, search_name, base_url, score=None, is_deal=False):
     embed = {
         "title": title[:256],
         "url": url,
-        "description": f"💶 **{price}**" + (f"\n🏷️ {brand}" if brand else "") + (f"\n📏 {size}" if size else "") + score_line + deal_line,
+        "description": f"💶 **{price}**" + (f"\n🏷️ {brand}" if brand else "") + (f"\n📏 {size}" if size else "") + (f"\n✨ État : {condition}" if condition else "") + score_line + deal_line,
         "footer": {"text": f"Recherche : {search_name}"},
     }
     if photo:
@@ -207,20 +248,27 @@ def main():
     domain = config.get("domain", "fr")
     base_url = f"https://www.vinted.{domain}"
     api_endpoint = f"https://www.vinted.{domain}/api/v2/catalog/items"
+    # Catégories Vinted UK par défaut : Outerwear (1206), Jumpers & Sweaters (79),
+    # Trousers (34) — pour ne récupérer que vestes/pulls/pantalons.
+    global_catalog_ids = config.get("catalog_ids", [1206, 79, 34])
 
     session = get_session(base_url)
+
+    scan_summary = []
 
     for search in config["searches"]:
         name = search.get("name", "Recherche sans nom")
         if not search.get("url") and not search.get("keyword"):
             print(f"⚠️  Recherche '{name}' ignorée : ni 'url' ni 'keyword' renseigné.")
+            scan_summary.append((name, "ignorée"))
             continue
 
         print(f"🔍 Scan de la recherche : {name}")
         try:
-            items = fetch_items(session, search, base_url, api_endpoint)
+            items = fetch_items(session, search, base_url, api_endpoint, global_catalog_ids)
         except Exception as e:
             print(f"❌ Erreur lors du scan de '{name}': {e}")
+            scan_summary.append((name, f"échec ({e})"))
             continue
 
         exclude_words = [w.lower() for w in search.get("exclude", [])]
@@ -250,18 +298,29 @@ def main():
         seen_ids = set(seen.get(name, []))
         new_items = [item for item in items if str(item.get("id")) not in seen_ids]
 
-        # Score chaque nouvelle annonce et trie les meilleures en premier,
-        # pour que tu voies les pépites avant le reste.
         price_max = search.get("price_max")
-        scored = [(compute_score(item, price_max), item) for item in new_items]
-        scored.sort(key=lambda pair: pair[0], reverse=True)
-
         new_ids = []
-        for score, item in scored:
+        alerted_count = 0
+
+        for item in new_items:
             item_id = str(item.get("id"))
             new_ids.append(item_id)
-            is_deal = score >= 4
+
+            # On va chercher l'état détaillé avant de calculer le score
+            # définitif, car l'état influence la note (neuf/très bon état).
+            if not item.get("status"):
+                details = fetch_item_details(session, item_id, base_url, domain)
+                if details and details.get("status"):
+                    item["status"] = details["status"]
+
+            score = compute_score(item, price_max, name)
+
+            if score < MIN_SCORE_TO_ALERT:
+                continue  # annonce ignorée : score trop bas
+
+            is_deal = score >= 4.5
             send_discord_alert(item, name, base_url, score=score, is_deal=is_deal)
+            alerted_count += 1
             time.sleep(1)  # éviter de spammer Discord trop vite
 
         # On garde uniquement les IDs vus dans ce scan + les nouveaux,
@@ -269,8 +328,14 @@ def main():
         current_ids = [str(item.get("id")) for item in items]
         seen[name] = list(set(current_ids) | seen_ids)[:500]
 
-        print(f"   → {len(new_ids)} nouvelle(s) annonce(s) trouvée(s).")
+        print(f"   → {len(new_items)} nouvelle(s) annonce(s), {alerted_count} alertée(s) (score ≥ {MIN_SCORE_TO_ALERT}).")
+        scan_summary.append((name, f"ok ({alerted_count}/{len(new_items)} alertée(s))"))
         time.sleep(2)  # petite pause entre chaque recherche pour ne pas se faire bloquer
+
+    print("\n📋 Résumé du scan :")
+    for name, status in scan_summary:
+        print(f"   - {name}: {status}")
+    print(f"\n✅ {len(scan_summary)}/{len(config['searches'])} recherches traitées.")
 
     save_json(SEEN_PATH, seen)
 
