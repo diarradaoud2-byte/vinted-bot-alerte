@@ -45,7 +45,7 @@ ALLOWED_SIZES = {"XS", "S", "M", "L", "XL", "XXL", "XXXL"}
 
 # Score minimum pour qu'une annonce soit envoyée sur Discord — en dessous,
 # elle est ignorée silencieusement (comptée dans le résumé mais pas alertée).
-MIN_SCORE_TO_ALERT = 4
+MIN_SCORE_TO_ALERT = 3
 
 
 def load_json(path, default):
@@ -165,11 +165,15 @@ def compute_score(item, price_max, search_name=""):
             score += 2
         elif ratio <= 0.65:
             score += 1
+        elif ratio <= 0.85:
+            score += 0.5
 
     status = (item.get("status") or "").lower()
-    if "neuf avec" in status:
+    if "neuf avec" in status or "new with tags" in status:
         score += 1
-    elif "neuf sans" in status:
+    elif "neuf sans" in status or "new without tags" in status:
+        score += 0.75
+    elif "très bon état" in status or "tres bon état" in status or "very good" in status:
         score += 0.5
 
     title = (item.get("title") or "").lower()
@@ -270,6 +274,20 @@ def main():
             print(f"❌ Erreur lors du scan de '{name}': {e}")
             scan_summary.append((name, f"échec ({e})"))
             continue
+
+        # Vinted matche parfois de façon large (marque + catégorie) sans que
+        # tous les mots du mot-clé apparaissent réellement dans le titre. On
+        # vérifie ici que chaque mot du mot-clé est bien présent, pour éviter
+        # de recevoir un simple jogging à la place d'un modèle précis.
+        keyword = search.get("keyword")
+        if keyword and not search.get("url"):
+            keyword_words = [w.lower() for w in keyword.split() if len(w) > 1]
+            before = len(items)
+            items = [
+                item for item in items
+                if all(w in item.get("title", "").lower() for w in keyword_words)
+            ]
+            print(f"   → {before - len(items)} annonce(s) filtrée(s) car titre ne contenait pas tous les mots du mot-clé.")
 
         exclude_words = [w.lower() for w in search.get("exclude", [])]
         if exclude_words:
