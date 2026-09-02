@@ -182,9 +182,9 @@ def compute_score(item, price_max, search_name=""):
 
     search_name_lower = search_name.lower()
     if any(line in search_name_lower for line in HIGH_VALUE_LINES):
-        score += 1
+        score += 1.5
     elif any(line in search_name_lower for line in COMMON_LINES):
-        score -= 0.5
+        score -= 1.5
 
     return round(max(0, min(score, 5)), 1)
 
