@@ -282,12 +282,16 @@ def main():
         keyword = search.get("keyword")
         if keyword and not search.get("url"):
             keyword_words = [w.lower() for w in keyword.split() if len(w) > 1]
+            min_words_required = max(1, round(len(keyword_words) * 0.7))
             before = len(items)
-            items = [
-                item for item in items
-                if all(w in item.get("title", "").lower() for w in keyword_words)
-            ]
-            print(f"   → {before - len(items)} annonce(s) filtrée(s) car titre ne contenait pas tous les mots du mot-clé.")
+
+            def title_matches(item):
+                title = item.get("title", "").lower()
+                matched = sum(1 for w in keyword_words if w in title)
+                return matched >= min_words_required
+
+            items = [item for item in items if title_matches(item)]
+            print(f"   → {before - len(items)} annonce(s) filtrée(s) car titre ne contenait pas assez de mots du mot-clé.")
 
         exclude_words = [w.lower() for w in search.get("exclude", [])]
         if exclude_words:
