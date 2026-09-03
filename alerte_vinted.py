@@ -282,7 +282,7 @@ def main():
         keyword = search.get("keyword")
         if keyword and not search.get("url"):
             keyword_words = [w.lower() for w in keyword.split() if len(w) > 1]
-            min_words_required = max(1, round(len(keyword_words) * 0.7))
+            min_words_required = len(keyword_words)  # tous les mots requis
             before = len(items)
 
             def title_matches(item):
