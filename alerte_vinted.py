@@ -79,7 +79,7 @@ def search_url_to_params(search_url):
     params = {k: v[0] if len(v) == 1 else v for k, v in query.items()}
     # On force le tri par nouveauté pour détecter les nouvelles annonces en premier
     params["order"] = "newest_first"
-    params.setdefault("per_page", "20")
+    params.setdefault("per_page", "40")
     return params
 
 
@@ -87,7 +87,7 @@ def search_config_to_params(search, global_catalog_ids=None):
     """Construit les paramètres de recherche directement à partir de champs
     simples dans config.json (keyword, price_max, price_min, conditions...),
     sans avoir besoin de coller une URL Vinted."""
-    params = {"order": "newest_first", "per_page": "20"}
+    params = {"order": "newest_first", "per_page": "40"}
     if search.get("keyword"):
         params["search_text"] = search["keyword"]
     if search.get("price_max") is not None:
