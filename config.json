@@ -1,5 +1,17 @@
 {
-  "domain": "co.uk",
+  "domains": [
+    "co.uk"
+  ],
+  "catalog_ids": [
+    1206,
+    2052,
+    2051,
+    79,
+    267,
+    34,
+    1821,
+    583
+  ],
   "searches": [
     {
       "name": "Nike AeroSwift",
@@ -693,6 +705,8 @@
         "Bag",
         "Beanie",
         "Bonnet",
+        "Bottom Only",
+        "Bottoms Only",
         "Cap",
         "Casquette",
         "Chaussettes",
@@ -704,10 +718,12 @@
         "Girls",
         "Gloves",
         "Half Tights",
+        "Jacket Only",
         "Jersey",
         "Ladies",
         "Leggings",
         "Maillot",
+        "Pants Only",
         "Polo",
         "Running Tights",
         "Sac",
@@ -722,6 +738,8 @@
         "Tank Top",
         "Tee",
         "Tights",
+        "Top Only",
+        "Trousers Only",
         "Tshirt",
         "Vest",
         "Women",
@@ -859,63 +877,6 @@
     {
       "name": "Nike Therma-FIT ADV",
       "keyword": "Nike Therma-FIT ADV",
-      "price_max": 35,
-      "exclude": [
-        "Bag",
-        "Beanie",
-        "Bonnet",
-        "Cap",
-        "Casquette",
-        "Chaussettes",
-        "Collant",
-        "Compression Tights",
-        "Crop Top",
-        "Débardeur",
-        "Gants",
-        "Girls",
-        "Gloves",
-        "Half Tights",
-        "Jersey",
-        "Ladies",
-        "Leggings",
-        "Maillot",
-        "Polo",
-        "Running Tights",
-        "Sac",
-        "Short",
-        "Short Sleeve",
-        "Shorts",
-        "Singlet",
-        "Sleeveless",
-        "Socks",
-        "T Shirt",
-        "T-shirt",
-        "Tank Top",
-        "Tee",
-        "Tights",
-        "Tshirt",
-        "Vest",
-        "Women",
-        "Women's",
-        "Womens",
-        "XXL",
-        "XXXL"
-      ],
-      "conditions": [
-        "Neuf avec étiquette",
-        "Neuf sans étiquette",
-        "Très bon état"
-      ],
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ]
-    },
-    {
-      "name": "Nike Storm-FIT Run",
-      "keyword": "Nike Storm-FIT Run",
       "price_max": 35,
       "exclude": [
         "Bag",
@@ -1320,6 +1281,8 @@
         "Bag",
         "Beanie",
         "Bonnet",
+        "Bottom Only",
+        "Bottoms Only",
         "Cap",
         "Casquette",
         "Chaussettes",
@@ -1331,10 +1294,12 @@
         "Girls",
         "Gloves",
         "Half Tights",
+        "Jacket Only",
         "Jersey",
         "Ladies",
         "Leggings",
         "Maillot",
+        "Pants Only",
         "Polo",
         "Running Tights",
         "Sac",
@@ -1349,6 +1314,8 @@
         "Tank Top",
         "Tee",
         "Tights",
+        "Top Only",
+        "Trousers Only",
         "Tshirt",
         "Vest",
         "Women",
@@ -1369,15 +1336,5 @@
         "XL"
       ]
     }
-  ],
-  "catalog_ids": [
-    1206,
-    2052,
-    2051,
-    79,
-    267,
-    34,
-    1821,
-    583
   ]
 }
