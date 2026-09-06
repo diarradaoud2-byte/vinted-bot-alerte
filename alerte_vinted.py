@@ -184,7 +184,7 @@ def compute_score(item, price_max, search_name=""):
     if any(line in search_name_lower for line in HIGH_VALUE_LINES):
         score += 1.5
     elif any(line in search_name_lower for line in COMMON_LINES):
-        score -= 1.5
+        score -= 2
 
     return round(max(0, min(score, 5)), 1)
 
@@ -248,116 +248,127 @@ def main():
         print("Aucune recherche configurée dans config.json.")
         sys.exit(0)
 
-    # Domaine Vinted à utiliser : "fr" (par défaut), "co.uk", "de", "es", "it"...
-    domain = config.get("domain", "fr")
-    base_url = f"https://www.vinted.{domain}"
-    api_endpoint = f"https://www.vinted.{domain}/api/v2/catalog/items"
-    # Catégories Vinted UK par défaut : Outerwear (1206), Jumpers & Sweaters (79),
+    # Domaines Vinted à scanner : liste de pays ("domains"), ou "domain" pour
+    # un seul pays (compatibilité avec l'ancien format).
+    domains = config.get("domains") or [config.get("domain", "fr")]
+    # Catégories Vinted par défaut : Outerwear (1206), Jumpers & Sweaters (79),
     # Trousers (34) — pour ne récupérer que vestes/pulls/pantalons.
     global_catalog_ids = config.get("catalog_ids", [1206, 79, 34])
 
-    session = get_session(base_url)
-
     scan_summary = []
+    alerted_ids_this_run = set()  # évite d'alerter 2x la même annonce si elle
+                                    # matche plusieurs mots-clés dans ce run
 
-    for search in config["searches"]:
-        name = search.get("name", "Recherche sans nom")
-        if not search.get("url") and not search.get("keyword"):
-            print(f"⚠️  Recherche '{name}' ignorée : ni 'url' ni 'keyword' renseigné.")
-            scan_summary.append((name, "ignorée"))
-            continue
+    for domain in domains:
+        base_url = f"https://www.vinted.{domain}"
+        api_endpoint = f"https://www.vinted.{domain}/api/v2/catalog/items"
+        session = get_session(base_url)
+        print(f"\n🌍 === Domaine : vinted.{domain} ===")
 
-        print(f"🔍 Scan de la recherche : {name}")
-        try:
-            items = fetch_items(session, search, base_url, api_endpoint, global_catalog_ids)
-        except Exception as e:
-            print(f"❌ Erreur lors du scan de '{name}': {e}")
-            scan_summary.append((name, f"échec ({e})"))
-            continue
+        for search in config["searches"]:
+            base_name = search.get("name", "Recherche sans nom")
+            name = f"{base_name} [{domain}]"  # clé unique par pays pour la mémoire
+            if not search.get("url") and not search.get("keyword"):
+                print(f"⚠️  Recherche '{name}' ignorée : ni 'url' ni 'keyword' renseigné.")
+                scan_summary.append((name, "ignorée"))
+                continue
+
+            print(f"🔍 Scan de la recherche : {name}")
+            try:
+                items = fetch_items(session, search, base_url, api_endpoint, global_catalog_ids)
+            except Exception as e:
+                print(f"❌ Erreur lors du scan de '{name}': {e}")
+                scan_summary.append((name, f"échec ({e})"))
+                continue
 
         # Vinted matche parfois de façon large (marque + catégorie) sans que
-        # tous les mots du mot-clé apparaissent réellement dans le titre. On
-        # vérifie ici que chaque mot du mot-clé est bien présent, pour éviter
-        # de recevoir un simple jogging à la place d'un modèle précis.
-        keyword = search.get("keyword")
-        if keyword and not search.get("url"):
-            keyword_words = [w.lower() for w in keyword.split() if len(w) > 1]
-            min_words_required = len(keyword_words)  # tous les mots requis
-            before = len(items)
+            # tous les mots du mot-clé apparaissent réellement dans le titre. On
+            # vérifie ici que chaque mot du mot-clé est bien présent, pour éviter
+            # de recevoir un simple jogging à la place d'un modèle précis.
+            keyword = search.get("keyword")
+            if keyword and not search.get("url"):
+                keyword_words = [w.lower() for w in keyword.split() if len(w) > 1]
+                min_words_required = len(keyword_words)  # tous les mots requis
+                before = len(items)
 
-            def title_matches(item):
-                title = item.get("title", "").lower()
-                matched = sum(1 for w in keyword_words if w in title)
-                return matched >= min_words_required
+                def title_matches(item):
+                    title = item.get("title", "").lower()
+                    matched = sum(1 for w in keyword_words if w in title)
+                    return matched >= min_words_required
 
-            items = [item for item in items if title_matches(item)]
-            print(f"   → {before - len(items)} annonce(s) filtrée(s) car titre ne contenait pas assez de mots du mot-clé.")
+                items = [item for item in items if title_matches(item)]
+                print(f"   → {before - len(items)} annonce(s) filtrée(s) car titre ne contenait pas assez de mots du mot-clé.")
 
-        exclude_words = [w.lower() for w in search.get("exclude", [])]
-        if exclude_words:
-            before = len(items)
-            items = [
-                item for item in items
-                if not any(w in item.get("title", "").lower() for w in exclude_words)
-            ]
-            print(f"   → {before - len(items)} annonce(s) filtrée(s) par exclusion.")
+            exclude_words = [w.lower() for w in search.get("exclude", [])]
+            if exclude_words:
+                before = len(items)
+                items = [
+                    item for item in items
+                    if not any(w in item.get("title", "").lower() for w in exclude_words)
+                ]
+                print(f"   → {before - len(items)} annonce(s) filtrée(s) par exclusion.")
 
-        allowed_sizes = search.get("sizes")
-        if allowed_sizes:
-            allowed_sizes = {s.strip().upper() for s in allowed_sizes}
-            before = len(items)
+            allowed_sizes = search.get("sizes")
+            if allowed_sizes:
+                allowed_sizes = {s.strip().upper() for s in allowed_sizes}
+                before = len(items)
 
-            def size_matches(item):
-                size_title = (item.get("size_title") or "").strip().upper()
-                # Le champ ressemble à "L / 40 / 12" ou juste "M" : on ne garde
-                # que le premier segment (la taille lettre).
-                first_part = size_title.split("/")[0].strip()
-                return first_part in allowed_sizes
+                def size_matches(item):
+                    size_title = (item.get("size_title") or "").strip().upper()
+                    # Le champ ressemble à "L / 40 / 12" ou juste "M" : on ne garde
+                    # que le premier segment (la taille lettre).
+                    first_part = size_title.split("/")[0].strip()
+                    return first_part in allowed_sizes
 
-            items = [item for item in items if size_matches(item)]
-            print(f"   → {before - len(items)} annonce(s) filtrée(s) par taille.")
+                items = [item for item in items if size_matches(item)]
+                print(f"   → {before - len(items)} annonce(s) filtrée(s) par taille.")
 
-        seen_ids = set(seen.get(name, []))
-        new_items = [item for item in items if str(item.get("id")) not in seen_ids]
+            seen_ids = set(seen.get(name, []))
+            new_items = [item for item in items if str(item.get("id")) not in seen_ids]
 
-        price_max = search.get("price_max")
-        new_ids = []
-        alerted_count = 0
+            price_max = search.get("price_max")
+            new_ids = []
+            alerted_count = 0
 
-        for item in new_items:
-            item_id = str(item.get("id"))
-            new_ids.append(item_id)
+            for item in new_items:
+                item_id = str(item.get("id"))
+                new_ids.append(item_id)
 
-            # On va chercher l'état détaillé avant de calculer le score
-            # définitif, car l'état influence la note (neuf/très bon état).
-            if not item.get("status"):
-                details = fetch_item_details(session, item_id, base_url, domain)
-                if details and details.get("status"):
-                    item["status"] = details["status"]
+                # On va chercher l'état détaillé avant de calculer le score
+                # définitif, car l'état influence la note (neuf/très bon état).
+                if not item.get("status"):
+                    details = fetch_item_details(session, item_id, base_url, domain)
+                    if details and details.get("status"):
+                        item["status"] = details["status"]
 
-            score = compute_score(item, price_max, name)
+                score = compute_score(item, price_max, name)
 
-            if score < MIN_SCORE_TO_ALERT:
-                continue  # annonce ignorée : score trop bas
+                if score < MIN_SCORE_TO_ALERT:
+                    continue  # annonce ignorée : score trop bas
 
-            is_deal = score >= 4.5
-            send_discord_alert(item, name, base_url, score=score, is_deal=is_deal)
-            alerted_count += 1
-            time.sleep(1)  # éviter de spammer Discord trop vite
+                if item_id in alerted_ids_this_run:
+                    continue  # déjà alertée via un autre mot-clé dans ce run
+                alerted_ids_this_run.add(item_id)
 
-        # On garde uniquement les IDs vus dans ce scan + les nouveaux,
-        # pour ne pas laisser grossir le fichier indéfiniment.
-        current_ids = [str(item.get("id")) for item in items]
-        seen[name] = list(set(current_ids) | seen_ids)[:500]
+                is_deal = score >= 4.5
+                send_discord_alert(item, name, base_url, score=score, is_deal=is_deal)
+                alerted_count += 1
+                time.sleep(1)  # éviter de spammer Discord trop vite
 
-        print(f"   → {len(new_items)} nouvelle(s) annonce(s), {alerted_count} alertée(s) (score ≥ {MIN_SCORE_TO_ALERT}).")
-        scan_summary.append((name, f"ok ({alerted_count}/{len(new_items)} alertée(s))"))
-        time.sleep(2)  # petite pause entre chaque recherche pour ne pas se faire bloquer
+            # On garde uniquement les IDs vus dans ce scan + les nouveaux,
+            # pour ne pas laisser grossir le fichier indéfiniment.
+            current_ids = [str(item.get("id")) for item in items]
+            seen[name] = list(set(current_ids) | seen_ids)[:500]
 
+            print(f"   → {len(new_items)} nouvelle(s) annonce(s), {alerted_count} alertée(s) (score ≥ {MIN_SCORE_TO_ALERT}).")
+            scan_summary.append((name, f"ok ({alerted_count}/{len(new_items)} alertée(s))"))
+            time.sleep(2)  # petite pause entre chaque recherche pour ne pas se faire bloquer
+
+    total_runs = len(config["searches"]) * len(domains)
     print("\n📋 Résumé du scan :")
     for name, status in scan_summary:
         print(f"   - {name}: {status}")
-    print(f"\n✅ {len(scan_summary)}/{len(config['searches'])} recherches traitées.")
+    print(f"\n✅ {len(scan_summary)}/{total_runs} recherches traitées ({len(domains)} pays × {len(config['searches'])} mots-clés).")
 
     save_json(SEEN_PATH, seen)
 
