@@ -2,11 +2,19 @@ name: Vinted Alert Bot
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
-  workflow_dispatch: {}
+    # Toutes les 10 minutes — laisse le temps à chaque run de scanner plus
+    # d'annonces par recherche sans se faire bloquer par Vinted.
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}  # permet de lancer le bot manuellement depuis l'onglet Actions
+
+# Empêche deux runs de tourner en même temps (évite les conflits Git si un
+# run précédent n'est pas encore terminé quand le suivant démarre).
+concurrency:
+  group: vinted-bot
+  cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: write  # nécessaire pour committer seen_items.json
 
 jobs:
   run-bot:
@@ -34,4 +42,5 @@ jobs:
           git config --global user.email "vinted-bot@users.noreply.github.com"
           git add seen_items.json
           git diff --quiet --cached || git commit -m "Update seen items [skip ci]"
+          git pull --rebase origin main
           git push
