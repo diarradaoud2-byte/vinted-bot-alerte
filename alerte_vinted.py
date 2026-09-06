@@ -353,7 +353,7 @@ def main():
                 is_deal = score >= 4.5
                 send_discord_alert(item, name, base_url, score=score, is_deal=is_deal)
                 alerted_count += 1
-                time.sleep(1)  # éviter de spammer Discord trop vite
+                time.sleep(0.5)  # éviter de spammer Discord trop vite
 
             # On garde uniquement les IDs vus dans ce scan + les nouveaux,
             # pour ne pas laisser grossir le fichier indéfiniment.
@@ -362,7 +362,7 @@ def main():
 
             print(f"   → {len(new_items)} nouvelle(s) annonce(s), {alerted_count} alertée(s) (score ≥ {MIN_SCORE_TO_ALERT}).")
             scan_summary.append((name, f"ok ({alerted_count}/{len(new_items)} alertée(s))"))
-            time.sleep(2)  # petite pause entre chaque recherche pour ne pas se faire bloquer
+            time.sleep(1)  # petite pause entre chaque recherche pour ne pas se faire bloquer
 
     total_runs = len(config["searches"]) * len(domains)
     print("\n📋 Résumé du scan :")
